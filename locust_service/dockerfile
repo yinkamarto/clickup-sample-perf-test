@@ -1,0 +1,18 @@
+    # Dockerfile Python
+    FROM python:3.12.0
+
+    WORKDIR /
+
+    COPY requirements.txt .
+    
+    RUN pip install --no-cache-dir --use-deprecated=legacy-resolver -r requirements.txt
+
+    COPY . .
+
+    RUN ls -a
+
+    CMD ["locust", "--headless", "-u", "20", "--run-time", "10", "-f", "locust_service/tests/locust_test.py", "--spawn-rate", "20", "--processes", "8"]
+
+    # TODO(Yinka): Must remove --reload option to save resources from cehcking changed files
+    # CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000", "--workers", "8", "--reload-dir", "./bethel", "--reload"]
+    

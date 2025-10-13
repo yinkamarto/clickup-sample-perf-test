@@ -1,0 +1,25 @@
+services:
+  web_service:
+    build: ./web_app
+    ports:
+      - "3000:3000"
+    container_name: node_container
+    volumes:
+      - ./web_app:/web_app/
+      - /web_app/node_modules # Prevent node_modules from being overwritten by the host
+    networks:
+      - my_network
+    
+  locust_service:
+    build: ./locust_service
+    container_name: locust_container
+    volumes:
+      - ./locust_service:/locust_service
+    networks:
+      - my_network
+    
+networks:
+  my_network:
+    name: my_network
+    driver: bridge
+    external: true
