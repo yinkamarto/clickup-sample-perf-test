@@ -1,0 +1,19 @@
+name: Locust performance test
+
+on:
+  pull_request:
+    types:
+      - opened
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: sh
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: make script executable
+        run: chmod +x ./run-test.sh
+      - name: Run script
+        run: ./run-test.sh
