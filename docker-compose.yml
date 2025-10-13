@@ -22,4 +22,3 @@ networks:
   my_network:
     name: my_network
     driver: bridge
-    external: true
