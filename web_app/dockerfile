@@ -4,6 +4,8 @@
     # Set the working directory inside the container
     WORKDIR /clickup_test_project
 
+    ARG DATABASE_URL="postgresql://db_user:password@db:5432/web_app_db"
+
     # Copy package.json and package-lock.json (or yarn.lock) first to leverage Docker caching
     COPY package*.json ./
 

@@ -1,12 +1,9 @@
-from locust import constant_throughput, HttpUser, task
-import random
+from locust import task
 
-class HelloWorldUser(HttpUser):
-    base_url = "http://web_service:3000"
-    host = "http://web_service:3000"
-    wait_time = constant_throughput(2000)
-    
+from perf_framework.load_test_user import LoadTestUser
+
+class WebAppUser(LoadTestUser):
     @task
     def hello_world(self):
-        id = random.randint(1, 5)
-        self.client.get(f"/{id}", name=f"{self.base_url}/{id}")
+        id = self.test_data["id"]
+        self.client.get(f"", name=f"{self.host}/users/{id}")

@@ -1,7 +1,7 @@
     # Dockerfile Python
     FROM python:3.12.0
 
-    WORKDIR /
+    WORKDIR /locust_service
 
     COPY requirements.txt .
     
@@ -9,5 +9,6 @@
 
     COPY . .
 
-    CMD ["locust", "--headless", "-u", "20", "--run-time", "10", "-f", "locust_service/tests/locust_test.py", "--spawn-rate", "20", "--processes", "8"]
+    # CMD ["locust", "--headless", "-u", "20", "--run-time", "10", "-f", "locust_service/tests/locust_test.py", "--spawn-rate", "20", "--processes", "8"]
+    CMD ["python", "-m", "perf_framework.main", "--user-count", "20", "--run-time", "10"]
     
