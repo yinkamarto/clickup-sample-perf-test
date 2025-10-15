@@ -6,4 +6,4 @@ class WebAppUser(LoadTestUser):
     @task
     def hello_world(self):
         id = self.test_data["id"]
-        self.client.get(f"", name=f"{self.host}/users/{id}")
+        self.client.get(f"", name=f"{self.host}/{id}")
