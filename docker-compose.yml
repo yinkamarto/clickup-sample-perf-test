@@ -16,7 +16,7 @@ services:
     env_file:
       - ./.env
     extra_hosts:
-      - "web_service:127.0.0.1"
+      - "host.docker.internal:host-gateway"
     
   locust_service:
     build: ./locust_service

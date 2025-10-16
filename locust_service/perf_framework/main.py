@@ -31,24 +31,24 @@ class Options:
 
 
 @click.command()
-@click.option("--host", default="http://web_service:3000", help="Base URL.")
+@click.option("--host", default="http://host.docker.internal:3000", help="Base URL.")
 @click.option("--user-count", default=20, help="Number of users.")
 @click.option("--run-time", default=10, help="Test run time.")
 def start_runner(host: str, user_count: int, run_time: int):
     import requests
     
     try:
-        requests.get("http://web_service")
+        requests.get("http://host.docker.internal:3000")
     except Exception as e:
-        print(f"http://web_service: {e}")
+        print(f"http://host.docker.internal: {e}")
     
     try:
-        requests.get("http://localhost")
+        requests.get("http://localhost:3000")
     except Exception as e:
         print(f"http://localhost: {e}")
     
     try:
-        requests.get("http://127.0.0.1")
+        requests.get("http://127.0.0.1:3000")
     except Exception as e:
         print(f"http://127.0.0.1: {e}")
         
