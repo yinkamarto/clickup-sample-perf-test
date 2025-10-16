@@ -35,6 +35,23 @@ class Options:
 @click.option("--user-count", default=20, help="Number of users.")
 @click.option("--run-time", default=10, help="Test run time.")
 def start_runner(host: str, user_count: int, run_time: int):
+    import requests
+    
+    try:
+        requests.get("http://web_service")
+    except Exception as e:
+        print(f"http://web_service: {e}")
+    
+    try:
+        requests.get("http://localhost")
+    except Exception as e:
+        print(f"http://localhost: {e}")
+    
+    try:
+        requests.get("http://127.0.0.1")
+    except Exception as e:
+        print(f"http://127.0.0.1: {e}")
+        
     PerfRunner(Options(host, user_count, run_time)).start()
 
 
