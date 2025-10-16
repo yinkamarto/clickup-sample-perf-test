@@ -21,5 +21,9 @@
     # Expose the application's port
     EXPOSE 3000
 
+    # Resolve host domain
+    RUN chmod +x ./resolve-host.sh
+    RUN . ./resolve-host.sh
+
     # Command to start the application
     CMD ["npm", "start"]
