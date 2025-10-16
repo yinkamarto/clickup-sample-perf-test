@@ -11,8 +11,8 @@ services:
     volumes:
       - ./web_app:/web_app/
       - /web_app/node_modules # Prevent node_modules from being overwritten by the host
-    networks:
-      - my_network
+    # networks:
+    #   - my_network
     env_file:
       - ./.env
     extra_hosts:
@@ -23,8 +23,8 @@ services:
     container_name: locust_container
     volumes:
       - ./locust_service:/locust_service
-    networks:
-      - my_network
+    # networks:
+    #   - my_network
     profiles:
       - locust
 
@@ -45,13 +45,13 @@ services:
       retries: 10
     env_file:
       - ./.env
-    networks:
-      - my_network
+    # networks:
+    #   - my_network
 
 volumes:
   postgres_data:
     
-networks:
-  my_network:
-    name: my_network
-    driver: bridge
+# networks:
+#   my_network:
+#     name: my_network
+#     driver: bridge
