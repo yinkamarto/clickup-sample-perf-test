@@ -12,6 +12,9 @@
     # Install dependencies
     RUN npm install
 
+    # Needed for healthcheck for dependency
+    RUN apk add --no-cache curl
+
     # Copy the rest of the application files
     COPY . .
 
