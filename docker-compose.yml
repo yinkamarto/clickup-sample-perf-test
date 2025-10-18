@@ -4,11 +4,23 @@ services:
     ports:
       - "3000:3000"
     container_name: node_container
+    environment:
+      - DATABASE_URL="postgresql://${POSTGRESQL_USER}:${POSTGRESQL_PW}@db:5432/${DB_NAME}"
+    depends_on:
+      db:
+        condition: service_healthy
     volumes:
       - ./web_app:/web_app/
       - /web_app/node_modules # Prevent node_modules from being overwritten by the host
     networks:
       - my_network
+    env_file:
+      - ./.env
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000"]
+      interval: 2s
+      timeout: 5s
+      retries: 5
     
   locust_service:
     build: ./locust_service
@@ -17,6 +29,34 @@ services:
       - ./locust_service:/locust_service
     networks:
       - my_network
+    profiles:
+      - locust
+    depends_on:
+      web_service:
+        condition: service_healthy
+
+  db:
+    image: postgres:15
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_USER=${POSTGRESQL_USER}
+      - POSTGRES_PASSWORD=${POSTGRESQL_PW}
+      - POSTGRES_DB=${DB_NAME}
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -p 5432 -U db_user -d web_app_db"]
+      interval: 1s
+      timeout: 5s
+      retries: 10
+    env_file:
+      - ./.env
+    networks:
+      - my_network
+
+volumes:
+  postgres_data:
     
 networks:
   my_network:

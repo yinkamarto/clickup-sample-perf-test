@@ -1,3 +1,5 @@
 node_modules
 .DS_Store
 act
+__pycache__
+dist
