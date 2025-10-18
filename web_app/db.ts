@@ -1,7 +1,12 @@
 import { Pool, Client } from 'pg';
 
 
-let db_url: string = 'postgresql://db_user:password@db:5432/web_app_db';
+let user = process.env.POSTGRESQL_USER;
+let host = process.env.DB_HOST || 'db';
+let database = process.env.DB_NAME;
+let password = process.env.POSTGRESQL_PW;
+let port = parseInt(process.env.DB_PORT || '5432');
+let db_url: string = `postgresql://${user}:${password}@${host}:${port}/${database}`;
 
 function setUpUserTable(client: Client): void{
     const dropTableQuery = `DROP TABLE IF EXISTS users`;
@@ -24,11 +29,7 @@ function setUpUserTable(client: Client): void{
 };
 
 const pool = new Pool({
-    user: process.env.POSTGRESQL_USER,
-    host: process.env.DB_HOST || 'db',
-    database: process.env.DB_NAME,
-    password: process.env.POSTGRESQL_PW,
-    port: parseInt(process.env.DB_PORT || '5432'),
+    connectionString: db_url,
 });
 
 const client = new Client({connectionString: db_url});
