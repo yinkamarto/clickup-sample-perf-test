@@ -1,4 +1,4 @@
-name: Locust performance test
+name: Jest unit test
 
 on:
   push
@@ -12,6 +12,6 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
       - name: make script executable
-        run: chmod +x ./run-test.sh
-      - name: Run performance tests
-        run: ./run-test.sh
+        run: chmod +x ./run-unit.sh
+      - name: Run Unit tests
+        run: ./run-unit.sh

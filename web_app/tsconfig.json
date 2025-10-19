@@ -9,7 +9,7 @@
     // See also https://aka.ms/tsconfig/module
     "module": "commonjs",
     "target": "ES6",
-    "types": [],
+    "types": ["jest", "node"],
     // For nodejs:
     // "lib": ["esnext"],
     // "types": ["node"],
@@ -43,5 +43,7 @@
 
     // Other options
     "esModuleInterop": true,
-  }
+    "baseUrl": "."
+  },
+  "include": ["/**/*.ts", "**/tests/**/*-test.ts"]
 }
