@@ -1,7 +1,9 @@
 name: Jest unit test
 
 on:
-  push
+  push:
+    paths:
+      - 'web_app/**'
 jobs:
   build:
     runs-on: ubuntu-latest
